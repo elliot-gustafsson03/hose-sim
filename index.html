@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" href="#" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Concrete Pump Hose Simulation</title>
+      <script type="module" crossorigin src="/hose-sim/assets/index-CXr_7wzt.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div id="container">
+                <div id="panel">
+                    <div id="settings" class="group">
+                        <h2 style="margin: 10px 0">Settings</h2>
+                        <div>
+                            <label>Hose mass (kg):</label>
+                            <input type="number" min="0" id="mass" />
+                        </div>
+                        <div>
+                            <label>Hose load (kg):</label>
+                            <input type="number" min="0" id="load" />
+                        </div>
+                        <div>
+                            <label>Hose stiffness:</label>
+                            <input type="number" min="0" id="stiffness" />
+                        </div>
+                        <div
+                            style="
+                                height: 1px;
+                                background-color: rgb(160, 160, 160);
+                            "
+                        ></div>
+                        <button class="btn" id="update">Update</button>
+                    </div>
+                    <div class="group" style="margin-top: 25px">
+                        <label>Air muslce contraction (%):</label>
+                        <div
+                            style="
+                                display: grid;
+                                grid-template-columns: 1fr 40px;
+                            "
+                        >
+                            <input
+                                type="range"
+                                min="0"
+                                max="25"
+                                value="0"
+                                id="contraction"
+                                style="position: relative; bottom: 4px"
+                            />
+                            <span
+                                id="contraction_span"
+                                style="text-align: right"
+                                >0%
+                            </span>
+                        </div>
+                    </div>
+                    <div class="group">
+                        <span id="force"></span>
+                    </div>
+                </div>
+                <div id="canvas_holder">
+                    <canvas width="1000" height="1000"></canvas>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: monospace;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    #container {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #panel {
+        position: relative;
+        width: 550px;
+        padding: 20px;
+        background-color: rgb(220, 220, 220);
+        height: 100%;
+    }
+
+    .group {
+        padding: 25px 0;
+    }
+
+    #settings {
+        border: 1px rgb(160, 160, 160) solid;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    #settings div {
+        margin: 15px 0;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    input {
+        width: 100%;
+        padding: 4px;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        background-color: white;
+        border-radius: 3px;
+        border: 1px rgb(160, 160, 160) solid;
+        cursor: pointer;
+        transition: 0.1s;
+    }
+
+    .btn:hover {
+        opacity: 0.7;
+    }
+
+    .btn:active {
+        opacity: 0.4;
+    }
+
+    #force {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    #force span {
+        color: red;
+    }
+
+    #canvas_holder {
+        background-color: black;
+        width: 100%;
+        position: relative;
+    }
+
+    canvas {
+        position: absolute;
+        background-color: black;
+        height: 100vh;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+</style>
