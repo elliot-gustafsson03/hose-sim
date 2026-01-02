@@ -5,14 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build --base=/hose-sim/",
+    "preview": "vite preview",
+    "predeploy": "bun run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
   },
   "dependencies": {
-    "cubic-spline": "^3.0.3"
+    "cubic-spline": "^3.0.3",
+    "gh-pages": "^6.3.0"
   }
 }
