@@ -5,7 +5,7 @@
         <link rel="icon" href="#" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Concrete Pump Hose Simulation</title>
-      <script type="module" crossorigin src="/hose-sim/assets/index-CXr_7wzt.js"></script>
+      <script type="module" crossorigin src="/hose-sim/assets/index-BkGAJTfV.js"></script>
     </head>
     <body>
         <div id="app">
@@ -58,6 +58,9 @@
                     </div>
                     <div class="group">
                         <span id="force"></span>
+                    </div>
+                    <div class="group">
+                        <span id="pressure"></span>
                     </div>
                 </div>
                 <div id="canvas_holder">
@@ -138,13 +141,18 @@
         opacity: 0.4;
     }
 
-    #force {
+    #force,
+    #pressure {
         font-size: 16px;
         font-weight: bold;
     }
 
     #force span {
         color: red;
+    }
+
+    #pressure span {
+        color: blue;
     }
 
     #canvas_holder {
