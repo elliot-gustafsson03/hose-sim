@@ -58,6 +58,9 @@
                     <div class="group">
                         <span id="force"></span>
                     </div>
+                    <div class="group">
+                        <span id="pressure"></span>
+                    </div>
                 </div>
                 <div id="canvas_holder">
                     <canvas width="1000" height="1000"></canvas>
@@ -138,13 +141,18 @@
         opacity: 0.4;
     }
 
-    #force {
+    #force,
+    #pressure {
         font-size: 16px;
         font-weight: bold;
     }
 
     #force span {
         color: red;
+    }
+
+    #pressure span {
+        color: blue;
     }
 
     #canvas_holder {

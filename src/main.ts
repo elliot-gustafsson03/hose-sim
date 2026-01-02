@@ -1,4 +1,5 @@
 import { HEIGHT, WIDTH } from './constants'
+import { getPressure } from './graph/pressure_estimator'
 import Hose from './objects/hose'
 import Renderer from './rendering/renderer'
 
@@ -9,15 +10,15 @@ const canvas = document.querySelector('canvas')! as HTMLCanvasElement
 const loadInput = document.querySelector('#load')! as HTMLInputElement
 const massInput = document.querySelector('#mass')! as HTMLInputElement
 const stiffnessInput = document.querySelector('#stiffness')! as HTMLInputElement
-const updateButton = document.querySelector('#update')! as HTMLSpanElement
-
 const contractionInput = document.querySelector(
     '#contraction'
 )! as HTMLInputElement
+const updateButton = document.querySelector('#update')! as HTMLSpanElement
 const contractionSpan = document.querySelector(
     '#contraction_span'
 )! as HTMLSpanElement
 const forceSpan = document.querySelector('#force')! as HTMLSpanElement
+const pressureSpan = document.querySelector('#pressure')! as HTMLSpanElement
 
 // HOSE DIMENSIONS
 
@@ -29,7 +30,7 @@ const leverLength = 0.12
 
 const mass = 23
 const load = 0
-const stiffness = 8000
+const stiffness = 6000
 
 const renderer = new Renderer(canvas)
 let hose = new Hose(
@@ -54,7 +55,7 @@ window.onload = () => {
     stiffnessInput.value = stiffness.toString()
 
     contractionInput.addEventListener('input', () => {
-        const contraction = Number(contractionInput.value)
+        contraction = Number(contractionInput.value)
         contractionSpan.innerHTML = `${contraction}%`
         hose.muscle!.contract(contraction)
     })
@@ -80,14 +81,28 @@ window.onload = () => {
 
 function showForce() {
     if (hose.muscle) {
-        forceSpan.innerHTML = `<span>Load cell force</span>: ${
+        forceSpan.innerHTML = `<span>Load cell measurement</span><br>${
             Math.round(hose.muscle!.force * 10) / 10
         } N`
     }
 }
 
+function showPressure() {
+    const pressure = getPressure(contraction, hose)
+
+    if (pressure) {
+        pressureSpan.innerHTML = `<span>Pneumatic muscle control signal</span><br>${
+            Math.round(pressure * 10) / 10
+        } bar`
+    }
+}
+
 const dt = 1 / 200
 let counter = 0
+
+// variables
+
+let contraction = 0
 
 function loop() {
     hose.update(dt)
@@ -97,8 +112,9 @@ function loop() {
         renderer.renderGraphics(hose)
     }
 
-    if (++counter == 30) {
+    if (++counter == 24) {
         showForce()
+        showPressure()
         counter = 0
     }
 }
